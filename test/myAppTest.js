@@ -4,7 +4,9 @@ var chai = require('chai'),
     chaihttp = require('chai-http'),
     time = require('time'),
     expect = chai.expect,
-    chance = new require('chance')();
+    Chance = require('chance'),
+    chance = new Chance(),
+    serverUrl = 'localhost:4000';
 
 require('../myApp');
 
@@ -14,7 +16,7 @@ function getRandomJsonObject() {
     return {
         author: chance.string(10),
         message: chance.string(100)
-    }
+    };
 }
 
 describe('unicorn resource http request tests', function () {
@@ -26,7 +28,7 @@ describe('unicorn resource http request tests', function () {
 
     // test post request method
     it('should responds to a post request', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .post('/unicorns')
             .send(a)
             .end(function (err, res) {
@@ -37,7 +39,7 @@ describe('unicorn resource http request tests', function () {
     });
 
     it('should responds to a post request', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .post('/unicorns')
             .send(b)
             .end(function (err, res) {
@@ -48,7 +50,7 @@ describe('unicorn resource http request tests', function () {
     });
 
     it('should responds to a post request', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .post('/unicorns')
             .send(c)
             .end(function (err, res) {
@@ -59,7 +61,7 @@ describe('unicorn resource http request tests', function () {
     });
 
     it('should get the first post', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .get('/unicorns/0')
             .end(function (err, res) {
                 expect(err).to.eql(null);
@@ -69,7 +71,7 @@ describe('unicorn resource http request tests', function () {
     });
 
     it('should get the second post', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .get('/unicorns/1')
             .end(function (err, res) {
                 expect(err).to.eql(null);
@@ -92,7 +94,7 @@ describe('footballs resource http request tests', function () {
 
     // test post request method
     it('should responds to a post request', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .post('/footballs')
             .send(a)
             .end(function (err, res) {
@@ -103,7 +105,7 @@ describe('footballs resource http request tests', function () {
     });
 
     it('should responds to a post request', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .post('/footballs')
             .send(b)
             .end(function (err, res) {
@@ -114,7 +116,7 @@ describe('footballs resource http request tests', function () {
     });
 
     it('should responds to a post request', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .post('/footballs')
             .send(c)
             .end(function (err, res) {
@@ -125,7 +127,7 @@ describe('footballs resource http request tests', function () {
     });
 
     it('should get the first post', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .get('/footballs/0')
             .end(function (err, res) {
                 expect(err).to.eql(null);
@@ -135,7 +137,7 @@ describe('footballs resource http request tests', function () {
     });
 
     it('should get the second post', function (done) {
-        chai.request('localhost:3000')
+        chai.request(serverUrl)
             .get('/footballs/1')
             .end(function (err, res) {
                 expect(err).to.eql(null);
