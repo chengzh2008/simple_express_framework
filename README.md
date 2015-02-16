@@ -15,10 +15,14 @@ var myExpress = require('./index');
 myExpress.addResources('unicorns');
 
 myExpress.addResources('footballs');
+// you can add what ever resources you want to handle.
 
 myExpress.startServer(4000);
 
 
-You can add many resources as you want. The resourses are stored in the server folder '/data/'.
+You can add many resources as you want. The resources are stored in the server folder '/data/'.
 And it support GET/POST/PUT/PATCH/DELETE http request.
 
+
+Credit to chance library.
+In my test code, I use the chance library to generate random string for testing.
