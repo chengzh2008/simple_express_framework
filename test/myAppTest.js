@@ -19,14 +19,15 @@ function getRandomJsonObject() {
     };
 }
 
-describe('unicorn resource http request tests', function () {
+describe('unicorns resource http request tests', function () {
     var date = new time.Date().toString(),
         a = getRandomJsonObject(),
         b = getRandomJsonObject(),
-        c = getRandomJsonObject();
+        c = getRandomJsonObject(),
+        e = getRandomJsonObject();
 
 
-    // test post request method
+    // the following five it's for test post and get request method
     it('should responds to a post request', function (done) {
         chai.request(serverUrl)
             .post('/unicorns')
@@ -80,19 +81,100 @@ describe('unicorn resource http request tests', function () {
             });
     });
 
+    // the following two it's for test put request method
+    it('should put the first post', function (done) {
+        chai.request(serverUrl)
+            .put('/unicorns/0')
+            .send(e)
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Successfully saved the post content');
+                done();
+            });
+    });
 
+    it('should get the modified content by previous put method', function (done) {
+        chai.request(serverUrl)
+            .get('/unicorns/0')
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body).to.deep.eql(e);
+                done();
+            });
+    });
+
+    // the following two it's for test delete request method
+    it('should respond a delete request', function (done) {
+        chai.request(serverUrl)
+            .delete('/unicorns/1')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Your content has been deleted successfully');
+                done();
+            });
+    });
+
+    it('should respond a non-exist delete request', function (done) {
+        chai.request(serverUrl)
+            .delete('/unicorns/1')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Your request does not exist');
+                done();
+            });
+    });
+
+    // the following three it's for test patch request method
+    it('should respond a patch request', function (done) {
+        chai.request(serverUrl)
+            .put('/unicorns/2')
+            .send({author: 'java', message: 'original message'})
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Successfully saved the post content');
+                done();
+            });
+    });
+    it('should respond a patch request', function (done) {
+        chai.request(serverUrl)
+            .patch('/unicorns/2')
+            .send({author: 'java patched', key: 'added value'})
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Successfully saved the post content');
+                done();
+            });
+    });
+
+
+    it('should return a content modified by a patch request', function (done) {
+        chai.request(serverUrl)
+            .get('/unicorns/2')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body)
+                    .to.deep.eql({  author: 'java patched',
+                        key: 'added value',
+                        message: 'original message'});
+                done();
+            });
+
+    });
 });
-
 
 
 describe('footballs resource http request tests', function () {
     var date = new time.Date().toString(),
         a = getRandomJsonObject(),
         b = getRandomJsonObject(),
-        c = getRandomJsonObject();
+        c = getRandomJsonObject(),
+        e = getRandomJsonObject();
 
 
-    // test post request method
+    // the following five it's for test post and get request method
     it('should responds to a post request', function (done) {
         chai.request(serverUrl)
             .post('/footballs')
@@ -146,6 +228,87 @@ describe('footballs resource http request tests', function () {
             });
     });
 
+    // the following two it's for test put request method
+    it('should put the first post', function (done) {
+        chai.request(serverUrl)
+            .put('/footballs/0')
+            .send(e)
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Successfully saved the post content');
+                done();
+            });
+    });
 
+    it('should get the modified content by previous put method', function (done) {
+        chai.request(serverUrl)
+            .get('/footballs/0')
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body).to.deep.eql(e);
+                done();
+            });
+    });
+
+    // the following two it's for test delete request method
+    it('should respond a delete request', function (done) {
+        chai.request(serverUrl)
+            .delete('/footballs/1')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Your content has been deleted successfully');
+                done();
+            });
+    });
+
+    it('should respond a non-exist delete request', function (done) {
+        chai.request(serverUrl)
+            .delete('/footballs/1')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Your request does not exist');
+                done();
+            });
+    });
+
+    // the following three it's for test patch request method
+    it('should respond a patch request', function (done) {
+        chai.request(serverUrl)
+            .put('/footballs/2')
+            .send({author: 'java', message: 'original message'})
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Successfully saved the post content');
+                done();
+            });
+    });
+    it('should respond a patch request', function (done) {
+        chai.request(serverUrl)
+            .patch('/footballs/2')
+            .send({author: 'java patched', key: 'added value'})
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body.msg).to.eql('Successfully saved the post content');
+                done();
+            });
+    });
+
+
+    it('should return a content modified by a patch request', function (done) {
+        chai.request(serverUrl)
+            .get('/footballs/2')
+            .send()
+            .end(function (err, res) {
+                expect(err).to.eql(null);
+                expect(res.body)
+                    .to.deep.eql({  author: 'java patched',
+                        key: 'added value',
+                        message: 'original message'});
+                done();
+            });
+
+    });
 });
 
