@@ -6,7 +6,12 @@ var chai = require('chai'),
     expect = chai.expect,
     Chance = require('chance'),
     chance = new Chance(),
-    serverUrl = 'localhost:4000';
+    serverUrl = 'localhost:4000',
+    info = {
+        serverError: 'Internal server error',
+        success: 'Successful',
+        invalid: 'Invalid request'
+    };
 
 require('../myApp');
 
@@ -34,7 +39,7 @@ describe('unicorns resource http request tests', function () {
             .send(a)
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -45,7 +50,7 @@ describe('unicorns resource http request tests', function () {
             .send(b)
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -56,7 +61,7 @@ describe('unicorns resource http request tests', function () {
             .send(c)
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -66,7 +71,7 @@ describe('unicorns resource http request tests', function () {
             .get('/unicorns/0')
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body).to.deep.eql(a);
+                expect(res.body.data).to.deep.eql(a);
                 done();
             });
     });
@@ -76,7 +81,7 @@ describe('unicorns resource http request tests', function () {
             .get('/unicorns/1')
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body).to.deep.eql(b);
+                expect(res.body.data).to.deep.eql(b);
                 done();
             });
     });
@@ -88,7 +93,7 @@ describe('unicorns resource http request tests', function () {
             .send(e)
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -98,7 +103,7 @@ describe('unicorns resource http request tests', function () {
             .get('/unicorns/0')
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body).to.deep.eql(e);
+                expect(res.body.data).to.deep.eql(e);
                 done();
             });
     });
@@ -110,7 +115,7 @@ describe('unicorns resource http request tests', function () {
             .send()
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Your content has been deleted successfully');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -121,7 +126,7 @@ describe('unicorns resource http request tests', function () {
             .send()
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Your request does not exist');
+                expect(res.body.msg).to.eql(info.invalid);
                 done();
             });
     });
@@ -133,7 +138,7 @@ describe('unicorns resource http request tests', function () {
             .send({author: 'java', message: 'original message'})
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -143,7 +148,7 @@ describe('unicorns resource http request tests', function () {
             .send({author: 'java patched', key: 'added value'})
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -155,7 +160,7 @@ describe('unicorns resource http request tests', function () {
             .send()
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body)
+                expect(res.body.data)
                     .to.deep.eql({  author: 'java patched',
                         key: 'added value',
                         message: 'original message'});
@@ -181,7 +186,7 @@ describe('footballs resource http request tests', function () {
             .send(a)
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -192,7 +197,7 @@ describe('footballs resource http request tests', function () {
             .send(b)
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -203,7 +208,7 @@ describe('footballs resource http request tests', function () {
             .send(c)
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -213,7 +218,7 @@ describe('footballs resource http request tests', function () {
             .get('/footballs/0')
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body).to.deep.eql(a);
+                expect(res.body.data).to.deep.eql(a);
                 done();
             });
     });
@@ -223,7 +228,7 @@ describe('footballs resource http request tests', function () {
             .get('/footballs/1')
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body).to.deep.eql(b);
+                expect(res.body.data).to.deep.eql(b);
                 done();
             });
     });
@@ -235,7 +240,8 @@ describe('footballs resource http request tests', function () {
             .send(e)
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
+                expect(res.body.data).to.deep.eql(e);
                 done();
             });
     });
@@ -245,7 +251,7 @@ describe('footballs resource http request tests', function () {
             .get('/footballs/0')
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body).to.deep.eql(e);
+                expect(res.body.data).to.deep.eql(e);
                 done();
             });
     });
@@ -257,7 +263,7 @@ describe('footballs resource http request tests', function () {
             .send()
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Your content has been deleted successfully');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -268,7 +274,7 @@ describe('footballs resource http request tests', function () {
             .send()
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Your request does not exist');
+                expect(res.body.msg).to.eql(info.invalid);
                 done();
             });
     });
@@ -280,7 +286,7 @@ describe('footballs resource http request tests', function () {
             .send({author: 'java', message: 'original message'})
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -290,7 +296,7 @@ describe('footballs resource http request tests', function () {
             .send({author: 'java patched', key: 'added value'})
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body.msg).to.eql('Successfully saved the post content');
+                expect(res.body.msg).to.eql(info.success);
                 done();
             });
     });
@@ -302,7 +308,7 @@ describe('footballs resource http request tests', function () {
             .send()
             .end(function (err, res) {
                 expect(err).to.eql(null);
-                expect(res.body)
+                expect(res.body.data)
                     .to.deep.eql({  author: 'java patched',
                         key: 'added value',
                         message: 'original message'});
